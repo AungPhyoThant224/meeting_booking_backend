@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
+import authRoutes from './api/auth/auth.routes.js';
 
 const app: Application = express();
 
@@ -7,8 +8,7 @@ const app: Application = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the Meeting Booking API!');
-});
+// Routes
+app.use('/api/auth', authRoutes);
 
 export default app;
