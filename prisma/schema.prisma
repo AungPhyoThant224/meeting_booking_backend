@@ -25,7 +25,8 @@ model User {
   email     String    @unique             
   password  String                        
   role      Role      @default(USER)      
-  bookings  Booking[]                     
+  bookings  Booking[]     
+  createdAt DateTime @default(now())                
 }
 
 model Booking {

@@ -7,17 +7,18 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res.status(400).json({ status: 400, error: "Invalid credentials" });
     }
 
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res.status(400).json({ status: 400, error: "Invalid credentials" });
     }
 
-    const token = generateToken(user.id, user.role);
+    const token = generateToken(user.id, user.role, user.email);
 
     res.json({
+      status: 200,
       message: "Login successful",
       data: {
         token,
@@ -30,6 +31,6 @@ export const login = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ error: "Login failed" });
+    res.status(500).json({ status: 500, error: "Login failed" });
   }
 };

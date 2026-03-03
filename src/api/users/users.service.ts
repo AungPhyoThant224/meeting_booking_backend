@@ -25,7 +25,6 @@ export const getAllUsers = async (page: number, limit: number) => {
       skip,
       take: limit,
       select: { id: true, name: true, email: true, role: true },
-      orderBy: { name: "asc" },
     }),
     prisma.user.count(),
   ]);
