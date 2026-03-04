@@ -11,8 +11,18 @@ const app: Application = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [];
+
 app.use(cors({
-  origin: '*', 
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
