@@ -74,4 +74,4 @@ After running the seed command, use these to test:
     - POST ```/api/bookings``` : Create new booking.
     - DELETE ```/api/bookings/:id``` : Delete booking.
     - PUT ```/api/bookings/:id``` : Update booking.
-    - GET ``/api/bookings/summary``` : Get bookings summary (Admin, Owner).
+    - GET ```/api/bookings/summary``` : Get bookings summary (Admin, Owner).
